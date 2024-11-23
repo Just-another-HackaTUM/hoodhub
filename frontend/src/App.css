@@ -37,9 +37,10 @@
   }
 }
 
-
-
-
-.text-muted {
-  color: white !important;
+.center-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Volle Höhe des Viewports */
+  text-align: center;
 }
