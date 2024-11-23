@@ -34,3 +34,8 @@
     ```bash
     python manage.py test
     ```
+
+## create new app
+```bash
+python manage.py startapp <app-name>
+```
