@@ -91,8 +91,18 @@ class UUIDOfferForm(forms.Form):
     def react(self):
         return Offer.add_reaction(self.cleaned_data['identifier'])
 
-    def deactivate(self):
+    def deactivate(self, user):
+        offer = Offer.objects.get(identifier=self.cleaned_data['identifier'])
+
+        if offer.author != user:
+            raise PermissionError('You are not the author of this offer.')
+
         return Offer.deactivate_offer(self.cleaned_data['identifier'])
 
-    def activate(self):
+    def activate(self, user):
+        offer = Offer.objects.get(identifier=self.cleaned_data['identifier'])
+
+        if offer.author != user:
+            raise PermissionError('You are not the author of this offer.')
+
         return Offer.activate_offer(self.cleaned_data['identifier'])
