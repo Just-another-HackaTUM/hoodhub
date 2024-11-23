@@ -50,13 +50,17 @@ function Offers() {
                                                 <Card.Text>{item.description.length > 80 ? item.description.slice(0, 80) + '...' : item.description}</Card.Text>
                                                 <Card.Text>Price: {item.price} €</Card.Text>
                                             </Card.Body>
-                                            <Card.Footer style={{ fontSize: '15px', padding: '8px' }}>
-                                                📅 {new Date(item.start_date).toLocaleDateString('de-DE', {
-                                                    weekday: 'long', // Day of the week
-                                                    year: 'numeric', // Year
-                                                    month: 'long', // Full month name
-                                                    day: 'numeric', // Day of the month
-                                                })}</Card.Footer>
+                                            <Card.Footer style={{ fontSize: '15px', padding: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <span>
+                                                    📅 {new Date(item.start_date).toLocaleDateString('en-GB', {
+                                                        weekday: 'long', // Day of the week
+                                                        year: 'numeric', // Year
+                                                        month: 'long', // Full month name
+                                                        day: 'numeric', // Day of the month
+                                                    })}
+                                                </span>
+                                                <span>{item.location.length > 20 ? item.location.slice(0, 20) + '...' : item.location}</span>
+                                            </Card.Footer>
                                         </Card>
                                     </Link>
                                 </Col>

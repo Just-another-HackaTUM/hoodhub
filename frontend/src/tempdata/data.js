@@ -6,7 +6,7 @@ export const offers = [{
     start_date: '2024-03-01T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
-    location: 'Test Location'
+    location: 'München Gasteig'
   }, {
     identifier: 1,
     title: 'Test Offer1',
@@ -15,7 +15,7 @@ export const offers = [{
     start_date: '2022-01-04T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
-    location: 'Test Location'
+    location: 'Bahnwärter Thiel'
   }, {
     identifier: 2,
     title: 'Test Offer2',
@@ -24,7 +24,7 @@ export const offers = [{
     start_date: '2025-01-01T00:00:00Z',
     end_date: '2022-12-31T23:59:59Z',
     topic: 0,
-    location: 'Test Location'
+    location: 'Oktoberfest'
   }, {
     identifier: 3,
     title: 'Test Offer3',
@@ -33,7 +33,7 @@ export const offers = [{
     start_date: '2022-03-01T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
-    location: 'Test Location'
+    location: 'Gasteig'
   }, {
     identifier: 4,
     title: 'Test Offer4',
@@ -42,7 +42,7 @@ export const offers = [{
     start_date: '2022-01-01T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
-    location: 'Test Location'
+    location: 'Bahnwärter Thiel'
   }, {
     identifier: 5,
     title: 'Test Offer5',
@@ -51,7 +51,7 @@ export const offers = [{
     start_date: '2023-01-01T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
-    location: 'Test Location'
+    location: 'Theresienwiese'
   }, {
     identifier: 6,
     title: 'Test Offer6',
@@ -60,7 +60,7 @@ export const offers = [{
     start_date: '2023-01-01T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
-    location: 'Test Location'
+    location: 'Garching bei München'
   }, {
     identifier: 7,
     title: 'Test Offer7',
@@ -69,7 +69,7 @@ export const offers = [{
     start_date: '2023-01-01T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
-    location: 'Test Location'
+    location: 'UFO'
   }, {
     identifier: 8,
     title: 'Test Offer8',
