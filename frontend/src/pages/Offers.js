@@ -20,9 +20,9 @@ function Offers() {
     }, []);
 
     const fetchResponse = async () => {
-        const response = await api.get("/offers/");
-        console.log(response.data); // Log the response data
-        return response.data; // Return only the data, not the whole response
+        // const response = await api.get("/offers/");
+        // console.log(response.data); // Log the response data
+        // return response.data; // Return only the data, not the whole response
     };
 
 
