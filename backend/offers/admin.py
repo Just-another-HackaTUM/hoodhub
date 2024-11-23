@@ -15,15 +15,13 @@ class TopicResource(resources.ModelResource):
 
 # Register your models here.
 @admin.register(Topic)
-class TopicAdmin(ImportExportModelAdmin):
-    resource_class = TopicResource
-    
-    list_display = ('name', 'color', 'created_at')
-    search_fields = ('name', 'color')
-    list_filter = ('created_at',)
-    date_hierarchy = 'created_at'
-    ordering = ('-created_at',)
-    readonly_fields = ('created_at',)
+class TopicAdmin(admin.ModelAdmin):
+    list_display = ("name", "color", "created_at")
+    search_fields = ("name", "color")
+    list_filter = ("created_at",)
+    date_hierarchy = "created_at"
+    ordering = ("-created_at",)
+    readonly_fields = ("created_at",)
 
 
 class OfferResource(resources.ModelResource):
@@ -44,34 +42,39 @@ class OfferResource(resources.ModelResource):
 
 
 @admin.register(Offer)
-class OfferAdmin(ImportExportModelAdmin):
-    resource_class = OfferResource
-    
-    list_display = ('title', 'author', 'price', 'location', 'topic', 'created_at', 'active', 'typ')
-    search_fields = ('title', 'author__username', 'location', 'topic__name')
-    list_filter = ('topic', 'created_at', 'active', 'typ')
-    date_hierarchy = 'created_at'
-    ordering = ('-created_at',)
-    readonly_fields = ('created_at', 'updated_at')
+class OfferAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "author",
+        "price",
+        "location",
+        "topic",
+        "created_at",
+    )
+    search_fields = ("title", "author__username", "location", "topic__name")
+    list_filter = ("topic", "created_at")
+    date_hierarchy = "created_at"
+    ordering = ("-created_at",)
+    readonly_fields = ("created_at", "updated_at")
 
 
 @admin.register(Chat)
 class ChatAdmin(admin.ModelAdmin):
-    list_display = ('offer', 'author', 'created_at')
-    search_fields = ('offer__title', 'author__username')
-    list_filter = ('created_at',)
-    date_hierarchy = 'created_at'
-    ordering = ('-created_at',)
-    readonly_fields = ('created_at',)
-    raw_id_fields = ('offer', 'author')
+    list_display = ("offer", "author", "created_at")
+    search_fields = ("offer__title", "author__username")
+    list_filter = ("created_at",)
+    date_hierarchy = "created_at"
+    ordering = ("-created_at",)
+    readonly_fields = ("created_at",)
+    raw_id_fields = ("offer", "author")
 
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('chat', 'author', 'created_at')
-    search_fields = ('chat__offer__title', 'author__username', 'content')
-    list_filter = ('created_at',)
-    date_hierarchy = 'created_at'
-    ordering = ('-created_at',)
-    readonly_fields = ('created_at',)
-    raw_id_fields = ('chat', 'author')
+    list_display = ("chat", "author", "created_at")
+    search_fields = ("chat__offer__title", "author__username", "content")
+    list_filter = ("created_at",)
+    date_hierarchy = "created_at"
+    ordering = ("-created_at",)
+    readonly_fields = ("created_at",)
+    raw_id_fields = ("chat", "author")
