@@ -1,13 +1,33 @@
 import '../App.css';
-import '../api.js'
+import React, { useState, useEffect } from 'react';
+import api from '../api.js'
 
 
 
 function Offers() {
 
+
+    const [response, setResponse] = useState('');
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+          const data = await fetchResponse();
+          setResponse(data); // Update state with the fetched data
+        };
+        fetchData(); // Call fetchData on mount
+      }, []);
+
+
+
     const fetchResponse = async () => {
-        const response = await api.get('/index');
-        console.log(response);
+        try {
+            const response = api.get("/offers")
+
+            return response.data
+        } catch (e) {
+            return "Mocked offers get index"
+        }
     }
 
 
@@ -20,7 +40,9 @@ function Offers() {
           </p>
 
 
-          <h2> {fetchResponse()} </h2>
+          <h2> {response} </h2>
+
+
           <a
             className="App-link"
             href="https://reactjs.org"
