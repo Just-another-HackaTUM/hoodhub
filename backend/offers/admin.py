@@ -32,11 +32,11 @@ class OfferResource(resources.ModelResource):
         import_id_fields = ('identifier',)
 
     def before_import_row(self, row, **kwargs):
-        topic_name = row.get('topic')
-        if topic_name:
-            topic, _ = Topic.objects.get_or_create(name=topic_name)
+        topic_identifier = row.get('topic')
+        if topic_identifier:
+            topic, _ = Topic.objects.get_or_create(identifier=topic_identifier)
             row['topic'] = topic.pk
-
+        
         author_username = row.get('author')
         if author_username:
             author, _ = User.objects.get_or_create(username=author_username)
