@@ -10,9 +10,7 @@ from .models import Topic, Offer, Chat, Message
 class TopicResource(resources.ModelResource):
     class Meta:
         model = Topic
-        fields = ('identifier', 'name', 'color', 'created_at')
         import_id_fields = ('identifier',)
-        export_order = ('identifier', 'name', 'color', 'created_at')
 
 
 # Register your models here.
@@ -49,9 +47,9 @@ class OfferResource(resources.ModelResource):
 class OfferAdmin(ImportExportModelAdmin):
     resource_class = OfferResource
     
-    list_display = ('title', 'author', 'price', 'location', 'topic', 'created_at')
+    list_display = ('title', 'author', 'price', 'location', 'topic', 'created_at', 'active', 'typ')
     search_fields = ('title', 'author__username', 'location', 'topic__name')
-    list_filter = ('topic', 'created_at')
+    list_filter = ('topic', 'created_at', 'active', 'typ')
     date_hierarchy = 'created_at'
     ordering = ('-created_at',)
     readonly_fields = ('created_at', 'updated_at')
