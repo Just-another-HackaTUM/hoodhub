@@ -17,7 +17,7 @@ class TopicResource(resources.ModelResource):
 @admin.register(Topic)
 class TopicAdmin(ImportExportModelAdmin):
     resource_class = TopicResource
-    
+
     list_display = ('name', 'color', 'created_at')
     search_fields = ('name', 'color')
     list_filter = ('created_at',)
@@ -36,7 +36,7 @@ class OfferResource(resources.ModelResource):
         if topic_name:
             topic, _ = Topic.objects.get_or_create(name=topic_name)
             row['topic'] = topic.pk
-        
+
         author_username = row.get('author')
         if author_username:
             author, _ = User.objects.get_or_create(username=author_username)
@@ -46,7 +46,7 @@ class OfferResource(resources.ModelResource):
 @admin.register(Offer)
 class OfferAdmin(ImportExportModelAdmin):
     resource_class = OfferResource
-    
+
     list_display = ('title', 'author', 'price', 'location', 'topic', 'created_at', 'active', 'typ')
     search_fields = ('title', 'author__username', 'location', 'topic__name')
     list_filter = ('topic', 'created_at', 'active', 'typ')
