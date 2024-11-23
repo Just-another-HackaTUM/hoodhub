@@ -1,4 +1,6 @@
+from typing import Any
 from django import forms
+from django.core.exceptions import ValidationError
 
 from .models import Offer, Topic
 
@@ -13,7 +15,7 @@ class CreateOfferForm(forms.Form):
     topic = forms.UUIDField()
     location = forms.CharField(max_length=255)
 
-    def create(self, user):
+    def create(self, user) -> bool:
         title = self.cleaned_data['title']
         description = self.cleaned_data['description']
         price = self.cleaned_data['price']
@@ -29,6 +31,8 @@ class CreateOfferForm(forms.Form):
             image=image, start_date=start_date, end_date=end_date,
             topic=topic, location=location, author=user
         )
+        
+        return True
 
     def validate_topic(self):
         try:
@@ -36,9 +40,16 @@ class CreateOfferForm(forms.Form):
         except Topic.DoesNotExist:
             raise forms.ValidationError('Invalid topic.')
 
-    def validate_dates(self):
-        if self.cleaned_data['start_date'] > self.cleaned_data['end_date']:
-            raise forms.ValidationError('End date must be after start date.')
+    def clean(self) -> dict[str, Any]:
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+
+        if start_date and end_date:
+            if start_date >= end_date:
+                raise ValidationError('Das Startdatum muss vor dem Enddatum liegen.')
+
+        return cleaned_data
 
 
 class UpdateOfferForm(forms.Form):
@@ -49,14 +60,14 @@ class UpdateOfferForm(forms.Form):
     image = forms.ImageField(required=False)
     start_date = forms.DateTimeField(required=False)
     end_date = forms.DateTimeField(required=False)
-    topic = forms.CharField(max_length=255, required=False)
+    topic = forms.UUIDField(required=False)
     location = forms.CharField(max_length=255, required=False)
 
-    def update(self, user):
+    def update(self, user) -> bool:
         offer = Offer.objects.get(identifier=self.cleaned_data['identifier'])
 
         if offer.author != user:
-            raise PermissionError('You are not the author of this offer.')
+            return False
 
         if self.cleaned_data['title']:
             offer.title = self.cleaned_data['title']
@@ -71,10 +82,23 @@ class UpdateOfferForm(forms.Form):
         if self.cleaned_data['end_date']:
             offer.end_date = self.cleaned_data['end_date']
         if self.cleaned_data['topic']:
-            offer.topic = self.cleaned_data['topic']
+            offer.topic = Topic.objects.get(identifier=self.cleaned_data['topic'])
         if self.cleaned_data['location']:
             offer.location = self.cleaned_data['location']
         offer.save()
+    
+        return True
+    
+    def clean(self) -> dict[str, Any]:
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+
+        if start_date and end_date:
+            if start_date >= end_date:
+                raise ValidationError('Das Startdatum muss vor dem Enddatum liegen.')
+
+        return cleaned_data
 
 class SearchOfferForm(forms.Form):
     text = forms.CharField(max_length=255)
