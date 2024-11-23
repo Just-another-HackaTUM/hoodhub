@@ -37,9 +37,9 @@ class OfferResource(resources.ModelResource):
             topic, _ = Topic.objects.get_or_create(identifier=topic_identifier)
             row['topic'] = topic.pk
 
-        author_username = row.get('author')
-        if author_username:
-            author, _ = User.objects.get_or_create(username=author_username)
+        author_identifier = row.get('author')
+        if author_identifier:
+            author, _ = User.objects.get_or_create(username=author_identifier)
             row['author'] = author.pk
 
 
