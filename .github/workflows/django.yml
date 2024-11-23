@@ -19,24 +19,24 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'  
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
         python -m venv venv
         source venv/bin/activate
         pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r backend/requirements.txt
 
     - name: Run Django migrations
       run: |
         source venv/bin/activate
-        python manage.py migrate
+        python backend/manage.py migrate
 
     - name: Run tests
       run: |
         source venv/bin/activate
-        python manage.py test
+        python backend/manage.py test
 
     - name: Check for linting errors
       run: |
@@ -47,13 +47,11 @@ jobs:
     - name: Collect static files
       run: |
         source venv/bin/activate
-        python manage.py collectstatic --noinput
+        python backend/manage.py collectstatic --noinput
 
     - name: Upload test results (optional)
       if: success()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: test-results
-        path: ./test-results  
-
-
+        path: ./test-results
