@@ -2,7 +2,7 @@ from django.http import JsonResponse, HttpResponse
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Offer
+from .models import Offer, Topic
 from .forms import CreateOfferForm, UpdateOfferForm, SearchOfferForm, UUIDOfferForm
 
 
@@ -114,6 +114,12 @@ def activate(request):
 
     return HttpResponse("Activation successful", status=200)
 
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_all_topic(request):
+    topics = list(Topic.get_all_topics())
+    return JsonResponse(topics, safe=False)
 
 def get_offers_of_user(request, user_id):
     return Offer.get_offers_of_user(user_id)
