@@ -50,7 +50,7 @@ def search(request):
     form = SearchOfferForm(request.POST)
 
     if not form.is_valid():
-        return JsonResponse({"error": form.errors})
+        return JsonResponse({'error': form.errors})
 
     offers = form.search()
     return JsonResponse(offers, safe=False)
@@ -65,7 +65,7 @@ def get_offer(request):
     form = UUIDOfferForm(request.GET)
 
     if not form.is_valid():
-        return JsonResponse({"error": form.errors})
+        return JsonResponse({'error': form.errors})
 
     offer = form.get_offer()
     return JsonResponse(offer, safe=False)
@@ -83,9 +83,7 @@ def react(request):
         HttpResponse("Reaction failed: Form invalid", status=400)
 
     if not form.react():
-        return HttpResponse(
-            "Reaction failed: Offer does not exist", status=400
-        )
+        return HttpResponse("Reaction failed: Offer does not exist", status=400)
 
     return HttpResponse("Reaction successful", status=200)
 
@@ -102,9 +100,7 @@ def deactivate(request):
         HttpResponse("Deactivation failed: Invalid form", status=400)
 
     if not form.deactivate(request.user):
-        return HttpResponse(
-            "Deactivation failed: Offer does not exist", status=400
-        )
+        return HttpResponse("Deactivation failed: Offer does not exist", status=400)
 
     return HttpResponse("Deactivation successful", status=200)
 
@@ -121,12 +117,9 @@ def activate(request):
         HttpResponse("Activation failed: Form is invalid", status=400)
 
     if not form.activate(request.user):
-        return HttpResponse(
-            "Activation failed: Offer does not exist", status=400
-        )
+        return HttpResponse("Activation failed: Offer does not exist", status=400)
 
     return HttpResponse("Activation successful", status=200)
-
 
 def get_offers_of_user(request, user_id):
     return Offer.get_offers_of_user(user_id)
