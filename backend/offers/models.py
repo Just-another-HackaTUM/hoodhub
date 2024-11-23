@@ -19,6 +19,9 @@ class Topic(models.Model):
     color = models.CharField(max_length=7)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
 
 
 class Offer(models.Model):
