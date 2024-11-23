@@ -81,7 +81,7 @@ def deactivate(request):
     if not form.is_valid():
         HttpResponse("Deactivation failed: Invalid form", status=400)
 
-    if not form.deactivate():
+    if not form.deactivate(request.user):
         return HttpResponse("Deactivation failed: Offer does not exist", status=400)
 
     return HttpResponse("Deactivation successful", status=200)
@@ -96,7 +96,7 @@ def activate(request):
     if not form.is_valid():
         HttpResponse("Activation failed: Form is invalid", status=400)
 
-    if not form.activate():
+    if not form.activate(request.user):
         return HttpResponse("Activation failed: Offer does not exist", status=400)
 
     return HttpResponse("Activation successful", status=200)
