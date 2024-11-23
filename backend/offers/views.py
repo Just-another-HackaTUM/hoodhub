@@ -12,23 +12,28 @@ def index(request):
 
 @login_required
 def create(request):
-    if request.method == 'POST':
-        form = CreateOfferForm(request.POST)
-    
-        if form.is_valid() and form.create(request.user):
-            return HttpResponse("Offer created successfully", status=200)
-        return HttpResponse("Offer creation failed", status=400)
-    return HttpResponse("Invalid request method", status=405)
+    if request.method != 'POST':
+        return HttpResponse("Invalid request method", status=405)
+    form = CreateOfferForm(request.POST)
+
+    if form.is_valid() and form.create(request.user):
+        return HttpResponse("Offer created successfully", status=200)
+
+    return HttpResponse("Offer creation failed", status=400)
+
 
 @login_required
 def update(request):
-    if request.method == 'POST':
-        form = UpdateOfferForm(request.POST)
+    if request.method != 'POST':
+        return HttpResponse("Invalid request method", status=405)
 
-        if form.is_valid() and form.update(request.user):
-            return HttpResponse("Offer updated successfully")
-        return HttpResponse("Offer update failed", status=400)
-    return HttpResponse("Invalid request method", status=405)
+    form = UpdateOfferForm(request.POST)
+
+    if form.is_valid() and form.update(request.user):
+        return HttpResponse("Offer updated successfully")
+
+    return HttpResponse("Offer update failed", status=400)
+
 
 @login_required
 def search(request):

@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # -------- Offers -----------------
     path('', views.index, name='index'),
     path('create', views.create, name='create'),
     path('update', views.update, name='update'),
@@ -17,4 +18,8 @@ urlpatterns = [
     path('activate', views.activate, name='activate'),
 
     path('get_offers_of_user/<uuid:offer_id>', views.get_offers_of_user, name='get_offers_of_user'),
+
+# -------- Chat -----------------
+
+
 ]
