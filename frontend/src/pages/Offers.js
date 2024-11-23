@@ -1,7 +1,7 @@
 import '../App.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Form, Card, Container, Row, Col } from 'react-bootstrap';
 import api from '../api.js';
 
 import { offers } from '../tempdata/data.js';
@@ -11,6 +11,35 @@ import { getImageUrl } from '../tempdata/utils.js';
 
 function Offers() {
     const [response, setResponse] = useState([]);
+    const [filter, setFilter] = useState({
+        category: '',
+        priceRange: '',
+        sortBy: '',
+    });
+
+    
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setFilter((prevFilter) => ({
+            ...prevFilter,
+            [name]: value,
+        }));
+    };
+
+    /* 
+    const filteredOffers = offers.filter((item) => {
+        if (filter.category && item.category !== filter.category) {
+            return false;
+        }
+
+        if (filter.priceRange && !(item.price >= filter.priceRange.split('-')[0] && item.price <= filter.priceRange.split('-')[1])) {
+            return false;
+        }
+
+        return true;
+    }); */
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,6 +63,67 @@ function Offers() {
         <div className="Offers">
             <header className="App-header">
 
+                {/* Floating Filter Bar */}
+                <div className="floating-filter-bar">
+                    <Form>
+                        <Row>
+                            <Col sm={12} md={4}>
+                                <Form.Group controlId="category">
+                                    <Form.Label>Category</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        name="category"
+                                        value={filter.category}
+                                        onChange={handleFilterChange}
+                                    >
+                                        <option value="">All Categories</option>
+                                        <option value="electronics">Electronics</option>
+                                        <option value="clothing">Clothing</option>
+                                        <option value="home">Home</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+
+                            <Col sm={12} md={4}>
+                                <Form.Group controlId="priceRange">
+                                    <Form.Label>Price Range</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        name="priceRange"
+                                        value={filter.priceRange}
+                                        onChange={handleFilterChange}
+                                    >
+                                        <option value="">Any Price</option>
+                                        <option value="0-50">0 - 50</option>
+                                        <option value="50-100">50 - 100</option>
+                                        <option value="100-500">100 - 500</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+
+                            <Col sm={12} md={4}>
+                                <Form.Group controlId="sortBy">
+                                    <Form.Label>Sort By</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        name="sortBy"
+                                        value={filter.sortBy}
+                                        onChange={handleFilterChange}
+                                    >
+                                        <option value="">Select</option>
+                                        <option value="price-asc">Price: Low to High</option>
+                                        <option value="price-desc">Price: High to Low</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                    </Form>
+                </div>
+
+
+
+
+                { /* Display Offers */ }
                 <Container className="mt-4">
                     <Row>
                         {offers.length > 0 ? (

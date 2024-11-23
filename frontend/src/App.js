@@ -28,14 +28,14 @@ import OfferCreate from './pages/OfferCreate'
 function IsLoggedIn({ currentUser }) {
   if (currentUser) {
     return <Navbar.Collapse className="justify-content-end">
-      <Navbar.Text>
-        Signed in as <Link to="/ifCurrentUser">Markus</Link> | <Link to="/ifCurrentUserLogOut">Log Out</Link>
+      <Navbar.Text className="text-white">
+        Signed in as <Link to="/ifCurrentUser" className="text-white">Markus</Link> | <Link to="/ifCurrentUserLogOut" className="text-white">Log Out</Link>
       </Navbar.Text>
     </Navbar.Collapse>
   } else {
     return <Navbar.Collapse className="justify-content-end">
-      <Navbar.Text>
-        Not Signed in | <Link to="/register"> Register</Link> | <Link to="/login">Log In</Link>
+      <Navbar.Text className="text-white">
+        Not Signed in | <Link to="/register" className="text-white"> Register</Link> | <Link to="/login" className="text-white">Log In</Link>
       </Navbar.Text>
     </Navbar.Collapse>
   }
@@ -71,7 +71,7 @@ export default function App() {
     <BrowserRouter>
 
 
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar expand="lg" className="custom-navbar">
         <Container>
           <Navbar.Brand as={Link} to="/home">hoodhub</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
