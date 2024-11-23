@@ -2,25 +2,20 @@ from django.http import JsonResponse, HttpResponse
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Offer
-from .forms import (
-    CreateOfferForm,
-    UpdateOfferForm,
-    SearchOfferForm,
-    UUIDOfferForm,
-)
+from .models import Offer, Topic
+from .forms import CreateOfferForm, UpdateOfferForm, SearchOfferForm, UUIDOfferForm
 
 
-@api_view(["GET"])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def index(request):
     return HttpResponse("Hello, world. You're at the index page.")
 
 
-@api_view(["POST"])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = CreateOfferForm(request.POST)
 
         if form.is_valid() and form.create(request.user):
@@ -29,10 +24,10 @@ def create(request):
     return HttpResponse("Invalid request method", status=405)
 
 
-@api_view(["POST"])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def update(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = UpdateOfferForm(request.POST)
 
         if form.is_valid() and form.update(request.user):
@@ -41,40 +36,39 @@ def update(request):
     return HttpResponse("Invalid request method", status=405)
 
 
-@api_view(["POST"])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def search(request):
-    if request.method != "POST":
-        return JsonResponse({"error": "Invalid request method"})
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Invalid request method'})
 
     form = SearchOfferForm(request.POST)
 
     if not form.is_valid():
-        return JsonResponse({"error": form.errors})
+        return JsonResponse({'error': form.errors})
 
     offers = form.search()
     return JsonResponse(offers, safe=False)
 
 
-@api_view(["GET"])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_offer(request):
-    if request.method != "GET":
-        return JsonResponse({"error": "Invalid request method"})
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Invalid request method'})
 
     form = UUIDOfferForm(request.GET)
 
     if not form.is_valid():
-        return JsonResponse({"error": form.errors})
+        return JsonResponse({'error': form.errors})
 
     offer = form.get_offer()
     return JsonResponse(offer, safe=False)
 
-
-@api_view(["PUT"])
+@api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def react(request):
-    if request.method != "PUT":
+    if request.method != 'PUT':
         return HttpResponse("Invalid request method", status=405)
 
     form = UUIDOfferForm(request.PUT)
@@ -83,17 +77,14 @@ def react(request):
         HttpResponse("Reaction failed: Form invalid", status=400)
 
     if not form.react():
-        return HttpResponse(
-            "Reaction failed: Offer does not exist", status=400
-        )
+        return HttpResponse("Reaction failed: Offer does not exist", status=400)
 
     return HttpResponse("Reaction successful", status=200)
 
-
-@api_view(["PUT"])
+@api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def deactivate(request):
-    if request.method != "PUT":
+    if request.method != 'PUT':
         return HttpResponse("Invalid request method", status=405)
 
     form = UUIDOfferForm(request.PUT)
@@ -101,18 +92,16 @@ def deactivate(request):
     if not form.is_valid():
         HttpResponse("Deactivation failed: Invalid form", status=400)
 
-    if not form.deactivate(request.user):
-        return HttpResponse(
-            "Deactivation failed: Offer does not exist", status=400
-        )
+    if not form.deactivate():
+        return HttpResponse("Deactivation failed: Offer does not exist", status=400)
 
     return HttpResponse("Deactivation successful", status=200)
 
 
-@api_view(["PUT"])
+@api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def activate(request):
-    if request.method != "PUT":
+    if request.method != 'PUT':
         return HttpResponse("Invalid request method", status=405)
 
     form = UUIDOfferForm(request.PUT)
@@ -120,13 +109,17 @@ def activate(request):
     if not form.is_valid():
         HttpResponse("Activation failed: Form is invalid", status=400)
 
-    if not form.activate(request.user):
-        return HttpResponse(
-            "Activation failed: Offer does not exist", status=400
-        )
+    if not form.activate():
+        return HttpResponse("Activation failed: Offer does not exist", status=400)
 
     return HttpResponse("Activation successful", status=200)
 
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_all_topic(request):
+    topics = list(Topic.get_all_topics())
+    return JsonResponse(topics, safe=False)
 
 def get_offers_of_user(request, user_id):
     return Offer.get_offers_of_user(user_id)

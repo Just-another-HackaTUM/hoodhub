@@ -19,9 +19,13 @@ class Topic(models.Model):
     color = models.CharField(max_length=7)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def get_all_topics():
+        return Topic.objects.all().values()
 
 
 class Offer(models.Model):
@@ -49,7 +53,6 @@ class Offer(models.Model):
     participants = models.ManyToManyField(
         "auth.User", related_name="offers", blank=True
     )
-    participants = models.ManyToManyField("auth.User", related_name="offers", blank=True)
 
     typ = models.CharField(max_length=20, default=OfferType.SALE, choices=OfferType.choices)
 
