@@ -104,15 +104,25 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/offers" element={<Offers />} />
-        <Route path="/login" element={<Login />} />
+
+        <Route path="/login" element={<Login
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+          email={email}
+          setEmail={setEmail}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword} />} />
+
         <Route path="/register" element={<Register
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
           email={email}
-          username={username}
-          password={password}
           setEmail={setEmail}
+          username={username}
           setUsername={setUsername}
+          password={password}
           setPassword={setPassword} />} />
 
       </Routes>
