@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 
-from backend.offers.models import Chat, Message, Offer
+from offers.models import Chat, Message, Offer
 
 
 class CreateMessageForm(forms.Form):
     chat = forms.UUIDField()
     author = forms.UUIDField()
     content = forms.CharField(max_length=255)
-    created_at = forms.DateTimeField(auto_now_add=True)
+    created_at = forms.DateTimeField()
 
     def validate_chat(self):
         try:
