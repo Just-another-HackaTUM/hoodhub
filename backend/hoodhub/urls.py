@@ -19,4 +19,9 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
+=======
+    path('offers/', include('offers.urls')),
+    path('users/', include('users.urls')),
+>>>>>>> df5e249 (feat: first draft for authentication)
 ]
