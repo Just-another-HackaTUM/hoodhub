@@ -3,7 +3,7 @@ export const offers = [{
     title: 'Test Offer',
     description: 'This is a test offer description.',
     price: 99.99,
-    start_date: '2023-01-01T00:00:00Z',
+    start_date: '2024-03-01T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
     location: 'Test Location'
@@ -12,7 +12,7 @@ export const offers = [{
     title: 'Test Offer1',
     description: 'This is a test offer description.',
     price: 199.99,
-    start_date: '2023-01-01T00:00:00Z',
+    start_date: '2022-01-04T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
     location: 'Test Location'
@@ -21,8 +21,8 @@ export const offers = [{
     title: 'Test Offer2',
     description: 'This is a test offer description.',
     price: 299.99,
-    start_date: '2023-01-01T00:00:00Z',
-    end_date: '2023-12-31T23:59:59Z',
+    start_date: '2025-01-01T00:00:00Z',
+    end_date: '2022-12-31T23:59:59Z',
     topic: 0,
     location: 'Test Location'
   }, {
@@ -30,16 +30,16 @@ export const offers = [{
     title: 'Test Offer3',
     description: 'This is a test offer description.',
     price: 399.99,
-    start_date: '2023-01-01T00:00:00Z',
+    start_date: '2022-03-01T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
     location: 'Test Location'
   }, {
     identifier: 4,
     title: 'Test Offer4',
-    description: 'This is a test offer description.',
+    description: 'This is a test offer description. Lorem ipsum dolor amet sit mehr weiß ich leider nicht latein ging ja auch nur bis zur 12. klasse also zu diesem Zeitpunkt hat man dann noch nicht weiter dieses gedicht gelernt',
     price: 499.99,
-    start_date: '2023-01-01T00:00:00Z',
+    start_date: '2022-01-01T00:00:00Z',
     end_date: '2023-12-31T23:59:59Z',
     topic: 0,
     location: 'Test Location'
