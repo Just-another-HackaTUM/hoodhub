@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 
-from backend.chats.forms import CreateMessageForm, CreateChatForm, GetMessagesForm
-from backend.offers.models import Chat
+from .forms import CreateMessageForm, CreateChatForm, GetMessagesForm
+from offers.models import Chat
 
 # Create your views here.
 @login_required
