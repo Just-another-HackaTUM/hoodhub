@@ -33,11 +33,37 @@ class Offer(models.Model):
 
     participants = models.ManyToManyField('auth.User', related_name='offers', blank=True)
 
-    def get_active_offers(self):
-        return self.objects.filter(active=True).order_by('-created_at')
+    @staticmethod
+    def get_active_offers():
+        return Offer.objects.filter(active=True).order_by('-created_at')
+
+    @staticmethod
+    def get_offer_containing_title(title):
+        return Offer.objects.filter(title__contains=title).order_by('-created_at')
+
+    @staticmethod
+    def get_offer_with_id(uuid):
+        return Offer.objects.get(identifier=uuid)
+
+    @staticmethod
+    def add_reaction(uuid):
+        Offer.objects.get(identifier=uuid).reaction += 1
+
+    @staticmethod
+    def deactivate_offer(uuid):
+        Offer.objects.get(identifier=uuid).active = False
+
+    @staticmethod
+    def activate_offer(uuid):
+        Offer.objects.get(identifier=uuid).active = True
+
+    @staticmethod
+    def get_offers_of_user(user_id):
+        return Offer.objects.filter(author=user_id).order_by('-created_at')
 
     def is_active(self):
         return self.active
+
 
 
 class Chat(models.Model):
