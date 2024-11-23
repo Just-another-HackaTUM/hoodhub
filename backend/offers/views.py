@@ -3,7 +3,12 @@ from rest_framework.decorators import permission_classes, api_view
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Offer
-from .forms import CreateOfferForm, UpdateOfferForm, SearchOfferForm, UUIDOfferForm
+from .forms import (
+    CreateOfferForm,
+    UpdateOfferForm,
+    SearchOfferForm,
+    UUIDOfferForm,
+)
 
 
 @api_view(["GET"])
@@ -78,7 +83,9 @@ def react(request):
         HttpResponse("Reaction failed: Form invalid", status=400)
 
     if not form.react():
-        return HttpResponse("Reaction failed: Offer does not exist", status=400)
+        return HttpResponse(
+            "Reaction failed: Offer does not exist", status=400
+        )
 
     return HttpResponse("Reaction successful", status=200)
 
@@ -95,7 +102,9 @@ def deactivate(request):
         HttpResponse("Deactivation failed: Invalid form", status=400)
 
     if not form.deactivate():
-        return HttpResponse("Deactivation failed: Offer does not exist", status=400)
+        return HttpResponse(
+            "Deactivation failed: Offer does not exist", status=400
+        )
 
     return HttpResponse("Deactivation successful", status=200)
 
@@ -112,7 +121,9 @@ def activate(request):
         HttpResponse("Activation failed: Form is invalid", status=400)
 
     if not form.activate():
-        return HttpResponse("Activation failed: Offer does not exist", status=400)
+        return HttpResponse(
+            "Activation failed: Offer does not exist", status=400
+        )
 
     return HttpResponse("Activation successful", status=200)
 

@@ -27,11 +27,17 @@ class CreateOfferForm(forms.Form):
         location = self.cleaned_data['location']
 
         Offer.objects.create(
-            title=title, description=description, price=price,
-            image=image, start_date=start_date, end_date=end_date,
-            topic=topic, location=location, author=user
+            title=title,
+            description=description,
+            price=price,
+            image=image,
+            start_date=start_date,
+            end_date=end_date,
+            topic=topic,
+            location=location,
+            author=user,
         )
-        
+
         return True
 
     def validate_topic(self):
@@ -86,9 +92,9 @@ class UpdateOfferForm(forms.Form):
         if self.cleaned_data['location']:
             offer.location = self.cleaned_data['location']
         offer.save()
-    
+
         return True
-    
+
     def clean(self) -> dict[str, Any]:
         cleaned_data = super().clean()
         start_date = cleaned_data.get('start_date')
@@ -96,9 +102,10 @@ class UpdateOfferForm(forms.Form):
 
         if start_date and end_date:
             if start_date >= end_date:
-                raise ValidationError('Das Startdatum muss vor dem Enddatum liegen.')
+                raise ValidationError("Das Startdatum muss vor dem Enddatum liegen.")
 
         return cleaned_data
+
 
 class SearchOfferForm(forms.Form):
     text = forms.CharField(max_length=255)
