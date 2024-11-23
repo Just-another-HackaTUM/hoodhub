@@ -11,7 +11,6 @@ class Topic(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-# Create your models here.
 class Offer(models.Model):
     identifier = models.UUIDField(primary_key=True, editable=False, default=uuid4)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -33,6 +32,12 @@ class Offer(models.Model):
     end_date = models.DateTimeField(null=True, blank=True)
 
     participants = models.ManyToManyField('auth.User', related_name='offers', blank=True)
+
+    def get_active_offer(self):
+        return self.objects.filter(active=True).order_by('-created_at')
+
+    def is_active(self):
+        return self.active
 
 
 class Chat(models.Model):

@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import Topic, Offer, Chat, Message
 
+
 # Register your models here.
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
@@ -32,3 +33,14 @@ class ChatAdmin(admin.ModelAdmin):
     ordering = ('-created_at',)
     readonly_fields = ('created_at',)
     raw_id_fields = ('offer', 'author')
+
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('chat', 'author', 'created_at')
+    search_fields = ('chat__offer__title', 'author__username', 'content')
+    list_filter = ('created_at',)
+    date_hierarchy = 'created_at'
+    ordering = ('-created_at',)
+    readonly_fields = ('created_at',)
+    raw_id_fields = ('chat', 'author')
