@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework.permissions import IsAuthenticated
