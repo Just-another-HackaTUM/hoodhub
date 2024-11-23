@@ -1,0 +1,57 @@
+name: Django CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install -r backend/requirements.txt
+
+    - name: Run Django migrations
+      run: |
+        source venv/bin/activate
+        python backend/manage.py migrate
+
+    - name: Run tests
+      run: |
+        source venv/bin/activate
+        python backend/manage.py test
+
+    - name: Check for linting errors
+      run: |
+        source venv/bin/activate
+        pip install flake8
+        flake8 backend/
+
+    - name: Collect static files
+      run: |
+        source venv/bin/activate
+        python backend/manage.py collectstatic --noinput
+
+    - name: Upload test results (optional)
+      if: success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: ./test-results
