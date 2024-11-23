@@ -125,6 +125,12 @@ class SearchOfferForm(forms.Form):
 class UUIDOfferForm(forms.Form):
     identifier = forms.UUIDField()
 
+    def validate_identifier(self):
+        try:
+            Offer.objects.get(identifier=self.cleaned_data['identifier'])
+        except Topic.DoesNotExist:
+            raise forms.ValidationError('Invalid offer.')
+
     def get_offer(self):
         return Offer.get_offer_with_id(self.cleaned_data["identifier"])
 

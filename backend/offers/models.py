@@ -109,6 +109,10 @@ class Chat(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @staticmethod
+    def get_messages(chat_id):
+        return Message.objects.filter(identifier=chat_id).order_by('-created_at')
+
 
 class Message(models.Model):
     identifier = models.UUIDField(

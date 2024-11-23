@@ -19,7 +19,4 @@ urlpatterns = [
 
     path('get_offers_of_user/<uuid:offer_id>', views.get_offers_of_user, name='get_offers_of_user'),
 
-# -------- Chat -----------------
-
-
 ]

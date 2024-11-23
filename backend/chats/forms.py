@@ -13,8 +13,28 @@ class CreateMessageForm(forms.Form):
 
     created_at = forms.DateTimeField(auto_now_add=True)
 
-    def create_msg(self, author) -> bool:
+    def create_msg(self, author):
         content = self.cleaned_data['content']
         chat = Chat.objects.get(identifier=self.cleaned_data['chat'])
 
         return Message.objects.create(chat=chat, author=author, content=content)
+
+class CreateChatForm(forms.Form):
+    offer = forms.UUIDField()
+    author = forms.UUIDField()
+
+    def create_chat(self, author):
+        offer = self.cleaned_data['offer']
+
+        return Chat.objects.create(author=author, offer=offer)
+
+class GetMessagesForm(forms.Form):
+    chat = forms.UUIDField()
+
+    def get_messages(self, user):
+        chat = Chat.objects.get(identifier=self.cleaned_data['identifier'])
+
+        if user != chat.author and user != chat.offer.author:
+            raise PermissionError('You are not permitted to read this chat.')
+
+        return Chat.get_messages(chat_id=chat)
