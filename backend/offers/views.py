@@ -30,8 +30,6 @@ def update(request):
         return HttpResponse("Offer update failed", status=400)
     return HttpResponse("Invalid request method", status=405)
 
-
-
 @login_required
 def search(request):
     if request.method != 'POST':
@@ -45,7 +43,6 @@ def search(request):
     offers = form.search()
     return JsonResponse(offers, safe=False)
 
-
 @login_required
 def get_offer(request):
     if request.method != 'GET':
@@ -58,7 +55,6 @@ def get_offer(request):
 
     offer = form.get_offer()
     return JsonResponse(offer, safe=False)
-
 
 @login_required
 def react(request):
@@ -89,7 +85,6 @@ def deactivate(request):
         return HttpResponse("Deactivation failed: Offer does not exist", status=400)
 
     return HttpResponse("Deactivation successful", status=200)
-
 
 @login_required
 def activate(request):
