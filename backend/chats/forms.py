@@ -1,7 +1,8 @@
 from typing import Any
 from django import forms
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from rest_framework.authtoken.admin import User
+
 
 from backend.offers.models import Chat, Message, Offer
 
