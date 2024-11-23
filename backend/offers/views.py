@@ -17,5 +17,15 @@ def offers(request):
         return JsonResponse({'message': 'Hello, world!'})return HttpResponse("Hello, world. You're at the polls index.")
 '''
 
+# /offers/test endpoints
 def offers(request):
-    return HttpResponse("Hello, world. You're at the index.")
+    if request.method == 'GET':
+        mock_offers = [
+            {"id": 1, "title": "Offer 1", "description": "Description for offer 1"},
+            {"id": 2, "title": "Offer 2", "description": "Description for offer 2"},
+            {"id": 3, "title": "Offer 3", "description": "Description for offer 3"}
+        ]
+
+        return JsonResponse(mock_offers, safe=False)
+
+    return JsonResponse({'message': 'Invalid request method'}, status=405)
