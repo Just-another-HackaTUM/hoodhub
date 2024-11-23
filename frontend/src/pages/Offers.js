@@ -62,7 +62,6 @@ function Offers() {
 
         <div className="Offers">
             <header className="App-header">
-
                 {/* Floating Filter Bar */}
                 <div className="floating-filter-bar">
                     <Form>

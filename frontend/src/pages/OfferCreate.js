@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { postTopic } from '../tempdata/data.js';
 
 import '../App.css';
 import api from '../api.js'
@@ -15,6 +16,8 @@ function OfferCreate({ currentUser, setCurrentUser, email, setEmail, username, s
     const [price, setPrice] = useState('');
     const [type, setType] = useState('');
     const [startDate, setStartDate] = useState('');
+    const [tag, setTag] = useState('');
+
 
 
     function submitOffer(e) {
@@ -62,6 +65,24 @@ function OfferCreate({ currentUser, setCurrentUser, email, setEmail, username, s
                                 />
                             </Form.Group>
 
+                            {/* Type Dropdown */}
+                            <Form.Group className="mb-3" controlId="formType">
+                                <Form.Label>Type</Form.Label>
+                                <Form.Control
+                                    as="select"
+                                    value={type}
+                                    onChange={(e) => setType(e.target.value)}
+                                    className="custom-select"
+                                >
+                                    <option value="">Select Topic</option>
+                                    {Object.entries(postTopic).map(([key, value]) => (
+                                        <option key={value} value={value}>
+                                            {key}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                            </Form.Group>
+
                             {/* Location Input */}
                             <Form.Group className="mb-3" controlId="formLocation">
                                 <Form.Label>Location</Form.Label>
@@ -93,7 +114,7 @@ function OfferCreate({ currentUser, setCurrentUser, email, setEmail, username, s
                                     onChange={(e) => setType(e.target.value)}
                                     className='custom-select'
                                 >
-                                    <option value="">Select type</option>
+                                    <option value="">Select Type</option>
                                     <option value="sale">Sale</option>
                                     <option value="rent">Rent</option>
                                     <option value="wanted">Wanted</option>
