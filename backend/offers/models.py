@@ -33,7 +33,7 @@ class Offer(models.Model):
 
     participants = models.ManyToManyField('auth.User', related_name='offers', blank=True)
 
-    def get_active_offer(self):
+    def get_active_offers(self):
         return self.objects.filter(active=True).order_by('-created_at')
 
     def is_active(self):
