@@ -105,3 +105,18 @@ class SearchOfferForm(forms.Form):
 
     def search(self):
         return Offer.get_offer_containing_title(self.cleaned_data['text'])
+
+class UUIDOfferForm(forms.Form):
+    identifier = forms.UUIDField()
+
+    def get_offer(self):
+        return Offer.get_offer_with_id(self.cleaned_data['identifier'])
+
+    def react(self):
+        return Offer.add_reaction(self.cleaned_data['identifier'])
+
+    def deactivate(self):
+        return Offer.deactivate_offer(self.cleaned_data['identifier'])
+
+    def activate(self):
+        return Offer.activate_offer(self.cleaned_data['identifier'])

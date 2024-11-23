@@ -1,3 +1,4 @@
+from os import MFD_ALLOW_SEALING
 from uuid import uuid4
 
 from django.db import models
@@ -47,15 +48,27 @@ class Offer(models.Model):
 
     @staticmethod
     def add_reaction(uuid):
+        if not Offer.objects.filter(identifier=uuid).exists():
+            return False
+
         Offer.objects.get(identifier=uuid).reaction += 1
+        return True
 
     @staticmethod
     def deactivate_offer(uuid):
+        if not Offer.objects.filter(identifier=uuid).exists():
+            return False
+
         Offer.objects.get(identifier=uuid).active = False
+        return True
 
     @staticmethod
     def activate_offer(uuid):
+        if not Offer.objects.filter(identifier=uuid).exists():
+            return False
+
         Offer.objects.get(identifier=uuid).active = True
+        return True
 
     @staticmethod
     def get_offers_of_user(user_id):
