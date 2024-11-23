@@ -78,8 +78,7 @@ class Migration(migrations.Migration):
                 (
                     "chat",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="offers.chat",
+                        on_delete=django.db.models.deletion.CASCADE, to="offers.chat"
                     ),
                 ),
             ],
@@ -118,16 +117,13 @@ class Migration(migrations.Migration):
                 (
                     "participants",
                     models.ManyToManyField(
-                        blank=True,
-                        related_name="offers",
-                        to=settings.AUTH_USER_MODEL,
+                        blank=True, related_name="offers", to=settings.AUTH_USER_MODEL
                     ),
                 ),
                 (
                     "topic",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="offers.topic",
+                        on_delete=django.db.models.deletion.CASCADE, to="offers.topic"
                     ),
                 ),
             ],

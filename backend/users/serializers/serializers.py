@@ -5,12 +5,9 @@ from rest_framework.validators import UniqueValidator
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
-        required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())],
+        required=True, validators=[UniqueValidator(queryset=User.objects.all())]
     )
-    password = serializers.CharField(
-        write_only=True, required=True, min_length=8
-    )
+    password = serializers.CharField(write_only=True, required=True, min_length=8)
     password2 = serializers.CharField(
         write_only=True, required=True, label="Confirm Password"
     )
@@ -21,9 +18,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if data["password"] != data["password2"]:
-            raise serializers.ValidationError(
-                {"password": "Passwords do not match."}
-            )
+            raise serializers.ValidationError({"password": "Passwords do not match."})
         return data
 
     def create(self, validated_data):
