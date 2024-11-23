@@ -2,6 +2,8 @@ import './App.css';
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import React, { useState, useEffect } from 'react';
+
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,14 +13,58 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 
-import Home from "./pages/Home";
-import Offers from "./pages/Offers"
-import Login from "./pages/Login"
 
+import api from './api.js'
+
+import Home from './pages/Home';
+import Offers from './pages/Offers';
+import Login from './pages/Login';
+import Register from './pages/Register';
+
+
+
+function IsLoggedIn({ currentUser }) {
+  if (currentUser) {
+    return <Navbar.Collapse className="justify-content-end">
+      <Navbar.Text>
+        Signed in as <Link to="/ifCurrentUser">Markus</Link> | <Link to="/ifCurrentUserLogOut">Log Out</Link>
+      </Navbar.Text>
+    </Navbar.Collapse>
+  } else {
+    return <Navbar.Collapse className="justify-content-end">
+      <Navbar.Text>
+        Not Signed in | <Link to="/register"> Register</Link> | <Link to="/login">Log In</Link>
+      </Navbar.Text>
+    </Navbar.Collapse>
+  }
+}
 
 
 
 export default function App() {
+
+  const [currentUser, setCurrentUser] = useState();
+  // const [registrationToggle, setRegistrationToggle] = useState(false);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+
+
+  useEffect(() => {
+    api.get("/user/")
+      .then(function (res) {
+        setCurrentUser(true);
+      })
+      .catch(function (error) {
+        setCurrentUser(false);
+      });
+  }, []);
+
+
+
+
+
   return (
     <BrowserRouter>
 
@@ -44,6 +90,10 @@ export default function App() {
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
+
+          <IsLoggedIn currentUser={currentUser} />
+
+
         </Container>
       </Navbar>
 
@@ -54,7 +104,27 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/offers" element={<Offers />} />
-        <Route path="/login" element={<Login />} />
+
+        <Route path="/login" element={<Login
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+          email={email}
+          setEmail={setEmail}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword} />} />
+
+        <Route path="/register" element={<Register
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+          email={email}
+          setEmail={setEmail}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword} />} />
+
       </Routes>
     </BrowserRouter>
   );
