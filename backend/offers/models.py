@@ -4,6 +4,14 @@ from uuid import uuid4
 from django.db import models
 
 
+class OfferType(models.TextChoices):
+    WANTED = 'WANTED'
+    EVENT = 'EVENT'
+    RENTAL = 'RENTAL'
+    SALE = 'SALE'
+    CONVERSATION = 'CONVERSATION'
+
+
 class Topic(models.Model):
     identifier = models.UUIDField(primary_key=True, editable=False, default=uuid4)
     name = models.CharField(max_length=100)
@@ -33,6 +41,8 @@ class Offer(models.Model):
     end_date = models.DateTimeField(null=True, blank=True)
 
     participants = models.ManyToManyField('auth.User', related_name='offers', blank=True)
+
+    typ = models.CharField(max_length=20, default=OfferType.SALE, choices=OfferType.choices)
 
     @staticmethod
     def get_active_offers():
