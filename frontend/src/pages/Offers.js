@@ -62,7 +62,9 @@ function Offers() {
                                 </Col>
                             ))
                         ) : (
-                            <p>Loading offers...</p>
+                            <div className="center-text">
+                                <p>There are no offers yet. Feel free to place one yourself 😄!</p>
+                            </div>
                         )}
                     </Row>
                 </Container>
