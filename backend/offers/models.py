@@ -1,11 +1,12 @@
-from os import MFD_ALLOW_SEALING
 from uuid import uuid4
 
 from django.db import models
 
 
 class Topic(models.Model):
-    identifier = models.UUIDField(primary_key=True, editable=False, default=uuid4)
+    identifier = models.UUIDField(
+        primary_key=True, editable=False, default=uuid4
+    )
     name = models.CharField(max_length=100)
     color = models.CharField(max_length=7)
 
@@ -13,7 +14,9 @@ class Topic(models.Model):
 
 
 class Offer(models.Model):
-    identifier = models.UUIDField(primary_key=True, editable=False, default=uuid4)
+    identifier = models.UUIDField(
+        primary_key=True, editable=False, default=uuid4
+    )
     author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
 
     title = models.CharField(max_length=100)
@@ -42,7 +45,9 @@ class Offer(models.Model):
 
     @staticmethod
     def get_offer_containing_title(title):
-        return Offer.objects.filter(title__contains=title).order_by("-created_at")
+        return Offer.objects.filter(title__contains=title).order_by(
+            "-created_at"
+        )
 
     @staticmethod
     def get_offer_with_id(uuid):
@@ -81,7 +86,9 @@ class Offer(models.Model):
 
 
 class Chat(models.Model):
-    identifier = models.UUIDField(primary_key=True, editable=False, default=uuid4)
+    identifier = models.UUIDField(
+        primary_key=True, editable=False, default=uuid4
+    )
 
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
     author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
@@ -90,7 +97,9 @@ class Chat(models.Model):
 
 
 class Message(models.Model):
-    identifier = models.UUIDField(primary_key=True, editable=False, default=uuid4)
+    identifier = models.UUIDField(
+        primary_key=True, editable=False, default=uuid4
+    )
 
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
     author = models.ForeignKey("auth.User", on_delete=models.CASCADE)

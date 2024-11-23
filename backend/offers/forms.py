@@ -53,7 +53,9 @@ class CreateOfferForm(forms.Form):
 
         if start_date and end_date:
             if start_date >= end_date:
-                raise ValidationError("Das Startdatum muss vor dem Enddatum liegen.")
+                raise ValidationError(
+                    "Das Startdatum muss vor dem Enddatum liegen."
+                )
 
         return cleaned_data
 
@@ -90,7 +92,9 @@ class UpdateOfferForm(forms.Form):
         if self.cleaned_data["end_date"]:
             offer.end_date = self.cleaned_data["end_date"]
         if self.cleaned_data["topic"]:
-            offer.topic = Topic.objects.get(identifier=self.cleaned_data["topic"])
+            offer.topic = Topic.objects.get(
+                identifier=self.cleaned_data["topic"]
+            )
         if self.cleaned_data["location"]:
             offer.location = self.cleaned_data["location"]
         offer.save()
@@ -104,7 +108,9 @@ class UpdateOfferForm(forms.Form):
 
         if start_date and end_date:
             if start_date >= end_date:
-                raise ValidationError("Das Startdatum muss vor dem Enddatum liegen.")
+                raise ValidationError(
+                    "Das Startdatum muss vor dem Enddatum liegen."
+                )
 
         return cleaned_data
 

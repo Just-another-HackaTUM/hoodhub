@@ -16,7 +16,14 @@ class TopicAdmin(admin.ModelAdmin):
 
 @admin.register(Offer)
 class OfferAdmin(admin.ModelAdmin):
-    list_display = ("title", "author", "price", "location", "topic", "created_at")
+    list_display = (
+        "title",
+        "author",
+        "price",
+        "location",
+        "topic",
+        "created_at",
+    )
     search_fields = ("title", "author__username", "location", "topic__name")
     list_filter = ("topic", "created_at")
     date_hierarchy = "created_at"
