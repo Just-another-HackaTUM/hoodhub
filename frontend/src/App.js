@@ -20,6 +20,7 @@ import Home from './pages/Home';
 import Offers from './pages/Offers';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import OfferDetail from './pages/OfferDetail'
 
 
 
@@ -104,6 +105,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/offers" element={<Offers />} />
+
+        <Route path="/offers/:identifier" element={<OfferDetail />} />
 
         <Route path="/login" element={<Login
           currentUser={currentUser}
