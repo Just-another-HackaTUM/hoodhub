@@ -44,3 +44,13 @@
   height: 100vh; /* Volle Höhe des Viewports */
   text-align: center;
 }
+
+
+.custom-select {
+  -webkit-appearance: none; /* Remove default styling in webkit browsers */
+  -moz-appearance: none; /* Remove default styling in Firefox */
+  appearance: none; /* Remove default styling */
+  padding-right: 2rem; /* Space for the custom arrow */
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><path d="M1 4l5 5 5-5z"/></svg>') no-repeat right 0.5rem center; /* Custom arrow */
+  background-size: 0.75rem; /* Adjust arrow size */
+}
