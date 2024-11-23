@@ -93,9 +93,6 @@ class UpdateOfferTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_update_offer_unauthorized(self):
-        user = User.objects.create_user(
-            username="testuser2", password="testpassword"
-        )
         self.client.login(username="testuser2", password="testpassword")
         data = {
             "identifier": self.offer.identifier,
