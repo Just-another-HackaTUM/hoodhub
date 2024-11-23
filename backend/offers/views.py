@@ -20,33 +20,26 @@ def index(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def create(request):
-    if request.method == "POST":
-        form = CreateOfferForm(request.POST)
+    form = CreateOfferForm(request.POST)
 
-        if form.is_valid() and form.create(request.user):
-            return HttpResponse("Offer created successfully", status=200)
-        return HttpResponse("Offer creation failed", status=400)
-    return HttpResponse("Invalid request method", status=405)
+    if form.is_valid() and form.create(request.user):
+        return HttpResponse("Offer created successfully", status=200)
+    return HttpResponse("Offer creation failed", status=400)
 
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def update(request):
-    if request.method == "POST":
-        form = UpdateOfferForm(request.POST)
+    form = UpdateOfferForm(request.POST)
 
-        if form.is_valid() and form.update(request.user):
-            return HttpResponse("Offer updated successfully")
-        return HttpResponse("Offer update failed", status=400)
-    return HttpResponse("Invalid request method", status=405)
+    if form.is_valid() and form.update(request.user):
+        return HttpResponse("Offer updated successfully")
+    return HttpResponse("Offer update failed", status=400)
 
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def search(request):
-    if request.method != "POST":
-        return JsonResponse({"error": "Invalid request method"})
-
     form = SearchOfferForm(request.POST)
 
     if not form.is_valid():
@@ -59,9 +52,6 @@ def search(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_offer(request):
-    if request.method != "GET":
-        return JsonResponse({"error": "Invalid request method"})
-
     form = UUIDOfferForm(request.GET)
 
     if not form.is_valid():
@@ -74,9 +64,6 @@ def get_offer(request):
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def react(request):
-    if request.method != "PUT":
-        return HttpResponse("Invalid request method", status=405)
-
     form = UUIDOfferForm(request.PUT)
 
     if not form.is_valid():
@@ -93,9 +80,6 @@ def react(request):
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def deactivate(request):
-    if request.method != "PUT":
-        return HttpResponse("Invalid request method", status=405)
-
     form = UUIDOfferForm(request.PUT)
 
     if not form.is_valid():
@@ -112,9 +96,6 @@ def deactivate(request):
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def activate(request):
-    if request.method != "PUT":
-        return HttpResponse("Invalid request method", status=405)
-
     form = UUIDOfferForm(request.PUT)
 
     if not form.is_valid():
