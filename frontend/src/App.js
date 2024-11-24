@@ -21,20 +21,21 @@ import Offers from './pages/Offers';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import OfferDetail from './pages/OfferDetail'
+import OfferCreate from './pages/OfferCreate'
 
 
 
 function IsLoggedIn({ currentUser }) {
   if (currentUser) {
     return <Navbar.Collapse className="justify-content-end">
-      <Navbar.Text>
-        Signed in as <Link to="/ifCurrentUser">Markus</Link> | <Link to="/ifCurrentUserLogOut">Log Out</Link>
+      <Navbar.Text className="text-white">
+        Signed in as <Link to="/ifCurrentUser" className="text-white">Markus</Link> | <Link to="/ifCurrentUserLogOut" className="text-white">Log Out</Link>
       </Navbar.Text>
     </Navbar.Collapse>
   } else {
     return <Navbar.Collapse className="justify-content-end">
-      <Navbar.Text>
-        Not Signed in | <Link to="/register"> Register</Link> | <Link to="/login">Log In</Link>
+      <Navbar.Text className="text-white">
+        Not Signed in | <Link to="/register" className="text-white"> Register</Link> | <Link to="/login" className="text-white">Log In</Link>
       </Navbar.Text>
     </Navbar.Collapse>
   }
@@ -70,7 +71,7 @@ export default function App() {
     <BrowserRouter>
 
 
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar expand="lg" className="custom-navbar">
         <Container>
           <Navbar.Brand as={Link} to="/home">hoodhub</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -78,6 +79,7 @@ export default function App() {
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/home">Home</Nav.Link>
               <Nav.Link as={Link} to="/offers">Offers</Nav.Link>
+              <Nav.Link as={Link} to="/offers/create">Create</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
@@ -104,8 +106,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/offers" element={<Offers />} />
 
+        <Route path="/offers" element={<Offers />} />
+        <Route path="/offers/create" element={<OfferCreate />} />
         <Route path="/offers/:identifier" element={<OfferDetail />} />
 
         <Route path="/login" element={<Login
